@@ -1,0 +1,20 @@
+package {
+	import flash.display.Sprite;
+	import org.flexunit.listeners.@CI_LISTENER_CLASS@;
+	import org.flexunit.internals.TraceListener;
+	import org.flexunit.runner.FlexUnitCore;
+	import org.flexunit.runner.Request;
+	@IMPORT_REFS@
+	public class TestRunner extends Sprite {
+		public function TestRunner() {
+			var core:FlexUnitCore = new FlexUnitCore();
+			core.addListener(new @CI_LISTENER_CLASS@());
+			core.addListener(new TraceListener());
+			var request:Request = Request.qualifyClasses.apply(
+				null,
+				[@CLASS_REFS@]
+			);
+			core.run(request);
+		}
+	}
+}
