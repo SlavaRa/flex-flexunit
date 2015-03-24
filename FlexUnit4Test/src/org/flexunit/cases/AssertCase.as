@@ -115,12 +115,74 @@ package org.flexunit.cases
 			}
 		}
 		
+		[Test(description="Ensure that the assertNotEquals function correctly determines if two non-strictly not equal items are not equal")]
+		public function testAssertNotEquals():void {
+			Assert.assertNotEquals( null, 1 );
+			Assert.assertNotEquals( new Object(), new Object() );
+		}
+		
+		[Test(description="Ensure that the assertNotEquals function correctly determines if two non-strictly not equal items are not equal when a message is provided")]
+		public function testAssertNotEqualsWithMessage():void {
+			Assert.assertNotEquals( "Assert not equals fail", "0", 1 );
+		}
+		
+		[Test(description="Ensure that the assertNotEquals function fails when two items are equal")]
+		public function testAssertNotEqualsFails():void {
+			var failed:Boolean;
+			var errMessage : String = "expected:<1> but was:<1>";
+			try {
+				Assert.assertNotEquals( 1, 1 );
+			} catch (error:AssertionFailedError) {
+				failed = true;
+				//Cannot use Assert.assertNotEquals here since that is what we are testing.
+				if ( errMessage != error.message)
+				{
+					throw new AssertionFailedError( "expected:<" + errMessage + "> but was:<" + error.message + ">" );
+				}
+			}
+			if ( !failed ) {
+				Assert.fail( "Assert not equals didn't fail" );
+			}
+		}
+		
+		[Test(description="Ensure that the assertNotEquals function fails when two items are equal and the proper passed message is displayed")]
+		public function testAssertNotEqualsWithMessageFails():void {
+			var message:String = "Assert not equals fail";
+			var failed:Boolean = false;
+			var errMessage : String = "Assert not equals fail - expected:<1> but was:<1>";
+			try {
+				Assert.assertNotEquals( message, 1, 1 );
+			// if we get an error with the right message we pass
+			} catch (error:AssertionFailedError) {
+				failed = true;
+				//Cannot use Assert.assertNotEquals here since that is what we are testing.
+				if ( errMessage != error.message)
+				{
+					throw new AssertionFailedError( "expected:<" + errMessage + "> but was:<" + error.message + ">" );
+				}
+			}
+			if ( !failed ) {
+				Assert.fail( "Assert not equals didn't fail" );
+			}
+		}
+		
+		[Test(description="Ensure that the failEquals function correctly determines if two non-strictly not equal values are not equal")]
+		public function testFailEquals():void {
+			Assert.failEquals( "Failure", 0, 1 );
+		}
+		
+		[Test(description="Ensure that the failEquals function fails when two values are equal",
+			expects="flexunit.framework.AssertionFailedError")]
+		public function testFailEqualsFails():void {
+			Assert.failEquals( "Failure", 1, 1 );
+		}
+		
 		[Test(description="Ensure that the failNotEquals function correctly determines if two non-strictly equal values are equal")]
 		public function testFailNotEquals():void {
 			Assert.failNotEquals( "Failure", "5", 5 );
 		}
 		
-		[Test(description="Ensure that the failNotEqula function fails when two values are not equal",
+		[Test(description="Ensure that the failNotEquals function fails when two values are not equal",
 			expects="flexunit.framework.AssertionFailedError")]
 		public function testFailNotEqualsFails():void {
 			Assert.failNotEquals( "Failure", 2, 4 );

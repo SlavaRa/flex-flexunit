@@ -90,6 +90,35 @@ package org.flexunit
 		}
 	
 		/**
+		 * Asserts that two provided values are not equal.
+		 * 
+		 * @param rest
+		 * 			Must be passed at least 2 arguments of type Object to compare for inequality.
+		 * 			If three arguments are passed, the first argument must be a String
+		 * 			and will be used as the error message.
+		 * 
+		 * 			<code>assertNotEquals( String, Object, Object );</code>
+		 * 			<code>assertNotEquals( Object, Object );</code>
+		 */
+		public static function assertNotEquals(... rest):void
+		{
+			_assertCount++;
+			if ( rest.length == 3 )
+				failEquals( rest[0], rest[1], rest[2] );
+			else
+				failEquals( "", rest[0], rest[1] );
+		}
+		
+		/**
+         * @private
+         */
+		public static function failEquals( message:String, expected:Object, actual:Object ):void
+		{
+			if ( expected == actual )
+			   failWithUserMessage( message, "expected:<" + expected + "> but was:<" + actual + ">" );
+		}
+	
+		/**
 		 * /**
 		 * Asserts that the provided values are strictly equal.
 		 * 
