@@ -35,7 +35,6 @@ package org.flexunit
 			return _assertCount;
 		}
 		
-		
 		/**
 		 * Resets the count for the number of assertions that have been made back to zero
 		 */
@@ -62,7 +61,6 @@ package org.flexunit
 		/**
 		 * Asserts that two provided values are equal.
 		 * 
-		 * @param asserter The function to use for assertion. 
 		 * @param rest
 		 * 			Must be passed at least 2 arguments of type Object to compare for equality.
 		 * 			If three arguments are passed, the first argument must be a String
@@ -90,7 +88,6 @@ package org.flexunit
 		}
 	
 		/**
-		 * /**
 		 * Asserts that the provided values are strictly equal.
 		 * 
 		 * @param rest
@@ -269,6 +266,7 @@ package org.flexunit
 			if ( object != null )
 			   failWithUserMessage( message, "object was not null: " + object );
 		}
+		
 		//TODO:  (<code>null</code> okay) needs removal?
 		/**
 		 * Fails a test with the argument message.
@@ -282,7 +280,6 @@ package org.flexunit
 		{
 			throw new AssertionFailedError( failMessage );
 		}
-	
 
         /**
          * @private
